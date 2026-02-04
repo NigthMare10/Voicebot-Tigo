@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Voicebot - Call Center Analytics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-gradient-start: #667eea;
+            --bg-gradient-end: #764ba2;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-tertiary: #94a3b8;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.15);
+            --shadow-xl: 0 20px 60px rgba(0,0,0,0.2);
+            --accent-primary: #667eea;
+            --accent-secondary: #764ba2;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-gradient-start: #4c1d95;
+            --bg-gradient-end: #5b21b6;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-tertiary: #94a3b8;
+            --border-color: #334155;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.3);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.4);
+            --shadow-xl: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+            min-height: 100vh;
+            padding: 20px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3), transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(138, 43, 226, 0.3), transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+            animation: backgroundPulse 15s ease-in-out infinite;
+        }
+
+        @keyframes backgroundPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+            overflow: hidden;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header-left h1 {
+            color: var(--text-primary);
+            font-size: 2.8em;
+            margin-bottom: 12px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .header-left p {
+            color: var(--text-secondary);
+            font-size: 1.2em;
+            font-weight: 500;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn i {
+            font-size: 18px;
+        }
+
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 14px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .last-update {
+            color: var(--text-tertiary);
+            font-size: 0.95em;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-content {
+            text-align: center;
+            max-width: 500px;
+            padding: 40px;
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .loading-spinner {
+            width: 80px;
+            height: 80px;
+            border: 6px solid rgba(102, 126, 234, 0.2);
+            border-top-color: var(--accent-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 30px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: var(--text-primary);
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .loading-subtext {
+            color: var(--text-secondary);
+            font-size: 1em;
+            margin-bottom: 25px;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background: rgba(102, 126, 234, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .loading-details {
+            color: var(--text-tertiary);
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        .cache-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 8px;
+            color: var(--success);
+            font-size: 0.85em;
+            margin-top: 15px;
+        }
+
+        .cache-status i {
+            font-size: 1em;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .kpi-card {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .kpi-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .kpi-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .kpi-title {
+            color: var(--text-secondary);
+            font-size: 0.95em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .kpi-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .kpi-value {
+            font-size: 3em;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .kpi-subtitle {
+            color: var(--text-tertiary);
+            font-size: 0.9em;
+        }
+
+        .charts-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .chart-card {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .chart-card:hover {
+            box-shadow: var(--shadow-xl);
+            transform: translateY(-4px);
+        }
+
+        .chart-header {
+            margin-bottom: 25px;
+        }
+
+        .chart-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .chart-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95em;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 350px;
+        }
+
+        .table-card {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: var(--shadow-lg);
+            animation: fadeInUp 1.2s ease-out;
+            overflow-x: auto;
+        }
+
+        .table-header {
+            margin-bottom: 25px;
+        }
+
+        .table-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .table-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+        }
+
+        thead th {
+            color: white;
+            padding: 18px 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        thead th:first-child {
+            border-top-left-radius: 12px;
+        }
+
+        thead th:last-child {
+            border-top-right-radius: 12px;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background: rgba(102, 126, 234, 0.05);
+            transform: scale(1.01);
+        }
+
+        tbody td {
+            padding: 18px 20px;
+            color: var(--text-primary);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .status-contacted {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .status-not-contacted {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 25px;
+            }
+
+            .header-left h1 {
+                font-size: 2em;
+            }
+
+            .header-content {
+                flex-direction: column;
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-card {
+                padding: 20px;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            thead th, tbody td {
+                padding: 12px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div class="loading-text" id="loadingText">Cargando Dashboard</div>
+            <div class="loading-subtext" id="loadingSubtext">Inicializando...</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+            </div>
+            <div class="loading-details" id="loadingDetails">Preparando conexión...</div>
+            <div id="cacheStatus"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <h1><i class="fas fa-chart-line"></i> Dashboard Voicebot</h1>
+                    <p>Analítica en Tiempo Real del Call Center</p>
+                    <div class="last-update">
+                        <div class="pulse-dot"></div>
+                        <span id="lastUpdate">Última actualización: Nunca</span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="btn" onclick="forceRefresh()">
+                        <i class="fas fa-sync-alt"></i>
+                        Actualizar Datos
+                    </button>
+                    <button class="btn" onclick="clearCache()">
+                        <i class="fas fa-trash"></i>
+                        Limpiar Caché
+                    </button>
+                    <button class="theme-toggle" onclick="toggleTheme()">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="kpi-grid" id="kpiGrid">
+            <!-- KPIs se generarán dinámicamente -->
+        </div>
+
+        <div class="charts-section">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">Llamadas por Día</h3>
+                    <p class="chart-subtitle">Evolución temporal de llamadas</p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="dailyChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">Estado de Contacto</h3>
+                    <p class="chart-subtitle">Distribución de contactos exitosos</p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="contactChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">Disposiciones Detalladas</h3>
+                    <p class="chart-subtitle">Clasificación de llamadas</p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="detailedDispositionChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">Duración de Llamadas</h3>
+                    <p class="chart-subtitle">Distribución por rangos de tiempo</p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="durationChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">Intentos de Contacto</h3>
+                    <p class="chart-subtitle">Número de intentos por cliente</p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="attemptsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-card">
+            <div class="table-header">
+                <h3 class="table-title">Top 50 Clientes</h3>
+                <p class="table-subtitle">Clientes con mayor actividad</p>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Teléfono</th>
+                        <th>Llamadas</th>
+                        <th>Última Disposición</th>
+                        <th>Estado</th>
+                        <th>Duración Total</th>
+                    </tr>
+                </thead>
+                <tbody id="leadsTableBody">
+                    <!-- Se llenará dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // ===== SISTEMA DE CACHÉ OPTIMIZADO =====
+        const CACHE_CONFIG = {
+            VERSION: '1.0',
+            EXPIRATION_HOURS: 4, // Caché válido por 4 horas
+            KEY_PREFIX: 'voicebot_dashboard_',
+            COMPRESSION_ENABLED: true
+        };
+
+        const CacheManager = {
+            set(key, data) {
+                try {
+                    const cacheEntry = {
+                        data: data,
+                        timestamp: Date.now(),
+                        version: CACHE_CONFIG.VERSION
+                    };
+                    const serialized = JSON.stringify(cacheEntry);
+                    localStorage.setItem(CACHE_CONFIG.KEY_PREFIX + key, serialized);
+                    return true;
+                } catch (e) {
+                    console.warn('Error guardando en caché:', e);
+                    return false;
+                }
+            },
+
+            get(key) {
+                try {
+                    const cached = localStorage.getItem(CACHE_CONFIG.KEY_PREFIX + key);
+                    if (!cached) return null;
+
+                    const cacheEntry = JSON.parse(cached);
+                    
+                    // Verificar versión
+                    if (cacheEntry.version !== CACHE_CONFIG.VERSION) {
+                        this.remove(key);
+                        return null;
+                    }
+
+                    // Verificar expiración
+                    const expirationMs = CACHE_CONFIG.EXPIRATION_HOURS * 60 * 60 * 1000;
+                    const age = Date.now() - cacheEntry.timestamp;
+                    
+                    if (age > expirationMs) {
+                        this.remove(key);
+                        return null;
+                    }
+
+                    return cacheEntry.data;
+                } catch (e) {
+                    console.warn('Error leyendo caché:', e);
+                    return null;
+                }
+            },
+
+            remove(key) {
+                localStorage.removeItem(CACHE_CONFIG.KEY_PREFIX + key);
+            },
+
+            clear() {
+                const keys = Object.keys(localStorage);
+                keys.forEach(key => {
+                    if (key.startsWith(CACHE_CONFIG.KEY_PREFIX)) {
+                        localStorage.removeItem(key);
+                    }
+                });
+            },
+
+            getAge(key) {
+                try {
+                    const cached = localStorage.getItem(CACHE_CONFIG.KEY_PREFIX + key);
+                    if (!cached) return null;
+                    const cacheEntry = JSON.parse(cached);
+                    return Date.now() - cacheEntry.timestamp;
+                } catch (e) {
+                    return null;
+                }
+            },
+
+            getInfo() {
+                const info = {
+                    totalSize: 0,
+                    entries: 0,
+                    keys: []
+                };
+
+                Object.keys(localStorage).forEach(key => {
+                    if (key.startsWith(CACHE_CONFIG.KEY_PREFIX)) {
+                        const value = localStorage.getItem(key);
+                        info.totalSize += value.length;
+                        info.entries++;
+                        info.keys.push(key);
+                    }
+                });
+
+                info.totalSizeMB = (info.totalSize / 1024 / 1024).toFixed(2);
+                return info;
+            }
+        };
+
+        // ===== VARIABLES GLOBALES =====
+        let allData = [];
+        const charts = {};
+        const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS-D9G2tPFrKEe9bfxF_uGfGiZaVvAGPVTv-zzItLe93xM44evRHyYBRtBW0PYPCPr8cXkDNYTG4W4d/pub?output=csv';
+
+        // ===== FUNCIONES DE PROGRESO =====
+        function updateProgress(percent, text, subtext, details) {
+            const progressBar = document.getElementById('progressBar');
+            const loadingText = document.getElementById('loadingText');
+            const loadingSubtext = document.getElementById('loadingSubtext');
+            const loadingDetails = document.getElementById('loadingDetails');
+
+            if (progressBar) progressBar.style.width = percent + '%';
+            if (loadingText) loadingText.textContent = text;
+            if (loadingSubtext) loadingSubtext.textContent = subtext;
+            if (loadingDetails) loadingDetails.textContent = details;
+        }
+
+        function showCacheStatus(usingCache, age) {
+            const cacheStatus = document.getElementById('cacheStatus');
+            if (!cacheStatus) return;
+
+            if (usingCache) {
+                const ageMinutes = Math.floor(age / 1000 / 60);
+                const ageHours = Math.floor(ageMinutes / 60);
+                const ageText = ageHours > 0 
+                    ? `${ageHours}h ${ageMinutes % 60}m` 
+                    : `${ageMinutes}m`;
+
+                cacheStatus.innerHTML = `
+                    <div class="cache-status">
+                        <i class="fas fa-rocket"></i>
+                        <span>Carga rápida desde caché (${ageText} de antigüedad)</span>
+                    </div>
+                `;
+            }
+        }
+
+        function hideLoading() {
+            const overlay = document.getElementById('loadingOverlay');
+            if (overlay) {
+                setTimeout(() => {
+                    overlay.classList.add('hidden');
+                }, 500);
+            }
+        }
+
+        // ===== CARGA DE DATOS OPTIMIZADA =====
+        async function loadData(forceRefresh = false) {
+            try {
+                updateProgress(5, 'Verificando caché...', 'Buscando datos guardados', 'Optimizando rendimiento');
+
+                // Intentar cargar desde caché
+                if (!forceRefresh) {
+                    const cachedData = CacheManager.get('main_data');
+                    if (cachedData && cachedData.length > 0) {
+                        const cacheAge = CacheManager.getAge('main_data');
+                        console.log('✅ Datos cargados desde caché');
+                        
+                        updateProgress(30, 'Cargando desde caché...', 'Datos encontrados localmente', 
+                            `${cachedData.length} registros en caché`);
+                        
+                        showCacheStatus(true, cacheAge);
+                        
+                        allData = cachedData;
+                        
+                        updateProgress(60, 'Procesando datos...', 'Calculando métricas', 'Generando visualizaciones');
+                        
+                        await processDataAndRender();
+                        
+                        updateProgress(100, '¡Completado!', 'Dashboard listo', 'Datos cargados exitosamente');
+                        hideLoading();
+                        return;
+                    }
+                }
+
+                // Si no hay caché o se fuerza actualización, cargar desde Google Sheets
+                updateProgress(15, 'Conectando a Google Sheets...', 'Descargando datos en tiempo real', 
+                    'Primera carga puede tardar unos segundos');
+
+                const response = await fetch(SHEET_URL);
+                
+                if (!response.ok) {
+                    throw new Error('Error al cargar datos: ' + response.status);
+                }
+
+                updateProgress(35, 'Descargando datos...', 'Recibiendo información del servidor', 
+                    'Procesando CSV...');
+
+                const csvText = await response.text();
+                
+                updateProgress(50, 'Parseando datos...', 'Convirtiendo formato CSV', 
+                    'Analizando estructura de datos');
+
+                Papa.parse(csvText, {
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: async (results) => {
+                        allData = results.data;
+                        
+                        updateProgress(70, 'Guardando en caché...', 'Optimizando futuras cargas', 
+                            `Almacenando ${allData.length} registros`);
+
+                        // Guardar en caché
+                        const saved = CacheManager.set('main_data', allData);
+                        if (saved) {
+                            console.log('✅ Datos guardados en caché para futuras cargas');
+                        }
+
+                        updateProgress(85, 'Procesando datos...', 'Calculando métricas', 
+                            'Generando visualizaciones');
+
+                        await processDataAndRender();
+
+                        updateProgress(100, '¡Completado!', 'Dashboard listo', 
+                            `${allData.length} registros procesados`);
+
+                        hideLoading();
+
+                        // Actualizar timestamp
+                        const lastUpdate = document.getElementById('lastUpdate');
+                        if (lastUpdate) {
+                            lastUpdate.innerHTML = `<div class="pulse-dot"></div> Última actualización: ${new Date().toLocaleString('es-HN')}`;
+                        }
+                    },
+                    error: (error) => {
+                        console.error('Error al parsear CSV:', error);
+                        updateProgress(0, 'Error', 'No se pudieron cargar los datos', error.message);
+                        setTimeout(hideLoading, 3000);
+                    }
+                });
+
+            } catch (error) {
+                console.error('Error cargando datos:', error);
+                updateProgress(0, 'Error de Conexión', 'No se pudo conectar al servidor', error.message);
+                
+                // Intentar cargar caché aunque esté expirado como fallback
+                const cachedData = CacheManager.get('main_data');
+                if (cachedData) {
+                    updateProgress(50, 'Usando datos de caché (offline)', 'Modo sin conexión', 
+                        'Los datos pueden no estar actualizados');
+                    allData = cachedData;
+                    await processDataAndRender();
+                }
+                
+                setTimeout(hideLoading, 3000);
+            }
+        }
+
+        async function processDataAndRender() {
+            // Pequeña pausa para permitir que la UI se actualice
+            await new Promise(resolve => setTimeout(resolve, 100));
+            
+            calculateKPIs();
+            await new Promise(resolve => setTimeout(resolve, 50));
+            
+            createDailyChart();
+            await new Promise(resolve => setTimeout(resolve, 50));
+            
+            createContactChart();
+            await new Promise(resolve => setTimeout(resolve, 50));
+            
+            createDetailedDispositionChart();
+            await new Promise(resolve => setTimeout(resolve, 50));
+            
+            createDurationChart();
+            await new Promise(resolve => setTimeout(resolve, 50));
+            
+            createAttemptsChart();
+            await new Promise(resolve => setTimeout(resolve, 50));
+            
+            createLeadsTable();
+        }
+
+        // ===== FUNCIONES DE UTILIDAD =====
+        function clearCache() {
+            if (confirm('¿Estás seguro de que deseas limpiar el caché? La próxima carga tardará más tiempo.')) {
+                CacheManager.clear();
+                const info = CacheManager.getInfo();
+                alert(`Caché limpiado exitosamente.\nEspacio liberado: ${info.totalSizeMB} MB`);
+                console.log('🗑️ Caché limpiado');
+            }
+        }
+
+        function forceRefresh() {
+            console.log('🔄 Forzando actualización desde servidor...');
+            document.getElementById('loadingOverlay').classList.remove('hidden');
+            loadData(true);
+        }
+
+        function isContacted(disposition) {
+            if (!disposition) return false;
+            const d = disposition.toLowerCase();
+            return d.includes('contactado') || d.includes('mensaje') || 
+                   d.includes('interested') || d.includes('success');
+        }
+
+        // ===== TEMA =====
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            const icon = document.querySelector('.theme-toggle i');
+            icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+
+            // Recrear gráficos con nuevos colores
+            if (allData.length > 0) {
+                Object.values(charts).forEach(chart => chart.destroy());
+                createDailyChart();
+                createContactChart();
+                createDetailedDispositionChart();
+                createDurationChart();
+                createAttemptsChart();
+            }
+        }
+
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            const icon = document.querySelector('.theme-toggle i');
+            if (icon) {
+                icon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            }
+        }
+
+        function getChartColors() {
+            const theme = document.documentElement.getAttribute('data-theme');
+            return {
+                primary: theme === 'dark' ? '#8b5cf6' : '#667eea',
+                secondary: theme === 'dark' ? '#a78bfa' : '#764ba2',
+                success: '#10b981',
+                danger: '#ef4444',
+                warning: '#f59e0b',
+                info: '#3b82f6',
+                textColor: theme === 'dark' ? '#f1f5f9' : '#1e293b',
+                gridColor: theme === 'dark' ? '#334155' : '#e2e8f0'
+            };
+        }
+
+        // ===== CÁLCULO DE KPIs =====
+        function calculateKPIs() {
+            const totalCalls = allData.length;
+            const uniqueLeads = new Set(allData.map(row => row.lead_first_name)).size;
+            
+            const contacted = allData.filter(row => isContacted(row.call_disposition)).length;
+            const contactRate = totalCalls > 0 ? ((contacted / totalCalls) * 100).toFixed(1) : 0;
+            
+            const totalDuration = allData.reduce((sum, row) => sum + (parseInt(row.total_duration) || 0), 0);
+            const avgDuration = totalCalls > 0 ? Math.round(totalDuration / totalCalls) : 0;
+
+            const kpiGrid = document.getElementById('kpiGrid');
+            kpiGrid.innerHTML = `
+                <div class="kpi-card" style="animation-delay: 0.1s">
+                    <div class="kpi-header">
+                        <div>
+                            <div class="kpi-title">Total de Llamadas</div>
+                            <div class="kpi-value">${totalCalls.toLocaleString()}</div>
+                            <div class="kpi-subtitle">Llamadas realizadas</div>
+                        </div>
+                        <div class="kpi-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kpi-card" style="animation-delay: 0.2s">
+                    <div class="kpi-header">
+                        <div>
+                            <div class="kpi-title">Clientes Únicos</div>
+                            <div class="kpi-value">${uniqueLeads.toLocaleString()}</div>
+                            <div class="kpi-subtitle">Leads contactados</div>
+                        </div>
+                        <div class="kpi-icon" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%)">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kpi-card" style="animation-delay: 0.3s">
+                    <div class="kpi-header">
+                        <div>
+                            <div class="kpi-title">Tasa de Contacto</div>
+                            <div class="kpi-value">${contactRate}%</div>
+                            <div class="kpi-subtitle">${contacted} contactados</div>
+                        </div>
+                        <div class="kpi-icon" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kpi-card" style="animation-delay: 0.4s">
+                    <div class="kpi-header">
+                        <div>
+                            <div class="kpi-title">Duración Promedio</div>
+                            <div class="kpi-value">${avgDuration}s</div>
+                            <div class="kpi-subtitle">Por llamada</div>
+                        </div>
+                        <div class="kpi-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%)">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ===== GRÁFICOS =====
+        function createDailyChart() {
+            const dailyCalls = {};
+            allData.forEach(row => {
+                const date = row.call_date || 'Sin fecha';
+                dailyCalls[date] = (dailyCalls[date] || 0) + 1;
+            });
+
+            const sortedDates = Object.keys(dailyCalls).sort();
+            const ctx = document.getElementById('dailyChart');
+            const colors = getChartColors();
+
+            if (charts.daily) charts.daily.destroy();
+
+            charts.daily = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: sortedDates,
+                    datasets: [{
+                        label: 'Llamadas',
+                        data: sortedDates.map(date => dailyCalls[date]),
+                        borderColor: colors.primary,
+                        backgroundColor: colors.primary + '20',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        pointBackgroundColor: colors.primary,
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 12,
+                            cornerRadius: 8,
+                            titleFont: { size: 14, weight: 'bold' },
+                            bodyFont: { size: 13 }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { color: colors.textColor, font: { size: 12 } },
+                            grid: { color: colors.gridColor, drawBorder: false }
+                        },
+                        x: {
+                            ticks: { 
+                                color: colors.textColor, 
+                                font: { size: 11 },
+                                maxRotation: 45,
+                                minRotation: 45
+                            },
+                            grid: { display: false }
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    }
+                }
+            });
+        }
+
+        function createContactChart() {
+            const contacted = allData.filter(row => isContacted(row.call_disposition)).length;
+            const notContacted = allData.length - contacted;
+
+            const ctx = document.getElementById('contactChart');
+            const colors = getChartColors();
+            if (charts.contact) charts.contact.destroy();
+
+            charts.contact = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Contactados', 'No Contactados'],
+                    datasets: [{
+                        data: [contacted, notContacted],
+                        backgroundColor: [colors.success, colors.danger],
+                        borderColor: ['#fff', '#fff'],
+                        borderWidth: 3,
+                        hoverOffset: 15
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: colors.textColor,
+                                padding: 15,
+                                font: { size: 13, weight: '600' }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 12,
+                            cornerRadius: 8
+                        }
+                    }
+                }
+            });
+        }
+
+        function createDetailedDispositionChart() {
+            const dispositions = {};
+            allData.forEach(row => {
+                const disp = row.call_disposition || 'Sin clasificar';
+                dispositions[disp] = (dispositions[disp] || 0) + 1;
+            });
+
+            const ctx = document.getElementById('detailedDispositionChart');
+            const colors = getChartColors();
+            if (charts.detailedDisposition) charts.detailedDisposition.destroy();
+
+            charts.detailedDisposition = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(dispositions),
+                    datasets: [{
+                        label: 'Cantidad',
+                        data: Object.values(dispositions),
+                        backgroundColor: colors.secondary,
+                        borderColor: colors.secondary,
+                        borderWidth: 2,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 12,
+                            cornerRadius: 8
+                        }
+                    },
+                    scales: {
+                        x: { 
+                            beginAtZero: true,
+                            ticks: { color: colors.textColor },
+                            grid: { color: colors.gridColor }
+                        },
+                        y: {
+                            ticks: { color: colors.textColor },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createDurationChart() {
+            const durations = allData.map(row => parseInt(row.total_duration) || 0);
+            const ranges = {
+                '0-10s': 0,
+                '11-30s': 0,
+                '31-60s': 0,
+                '1-2min': 0,
+                '2-5min': 0,
+                '5+ min': 0
+            };
+
+            durations.forEach(d => {
+                if (d <= 10) ranges['0-10s']++;
+                else if (d <= 30) ranges['11-30s']++;
+                else if (d <= 60) ranges['31-60s']++;
+                else if (d <= 120) ranges['1-2min']++;
+                else if (d <= 300) ranges['2-5min']++;
+                else ranges['5+ min']++;
+            });
+
+            const ctx = document.getElementById('durationChart');
+            const colors = getChartColors();
+            if (charts.duration) charts.duration.destroy();
+
+            charts.duration = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(ranges),
+                    datasets: [{
+                        label: 'Cantidad de llamadas',
+                        data: Object.values(ranges),
+                        backgroundColor: colors.warning,
+                        borderColor: colors.warning,
+                        borderWidth: 2,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 12,
+                            cornerRadius: 8
+                        }
+                    },
+                    scales: {
+                        y: { 
+                            beginAtZero: true,
+                            ticks: { color: colors.textColor },
+                            grid: { color: colors.gridColor }
+                        },
+                        x: {
+                            ticks: { color: colors.textColor },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createAttemptsChart() {
+            const attempts = {};
+            allData.forEach(row => {
+                const count = parseInt(row.lead_called_count) || 0;
+                attempts[count] = (attempts[count] || 0) + 1;
+            });
+
+            const ctx = document.getElementById('attemptsChart');
+            const colors = getChartColors();
+            if (charts.attempts) charts.attempts.destroy();
+
+            charts.attempts = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(attempts).sort((a, b) => a - b).map(a => `${a} ${a == 1 ? 'intento' : 'intentos'}`),
+                    datasets: [{
+                        label: 'Cantidad de clientes',
+                        data: Object.keys(attempts).sort((a, b) => a - b).map(k => attempts[k]),
+                        backgroundColor: colors.info,
+                        borderColor: colors.info,
+                        borderWidth: 2,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 12,
+                            cornerRadius: 8
+                        }
+                    },
+                    scales: {
+                        y: { 
+                            beginAtZero: true,
+                            ticks: { color: colors.textColor },
+                            grid: { color: colors.gridColor }
+                        },
+                        x: {
+                            ticks: { color: colors.textColor },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createLeadsTable() {
+            const leadMap = {};
+            allData.forEach(row => {
+                const name = row.lead_first_name || 'Sin nombre';
+                if (!leadMap[name]) {
+                    leadMap[name] = {
+                        name: name,
+                        phone: row.lead_last_phone_dialed,
+                        count: 0,
+                        lastDisposition: row.call_disposition,
+                        totalDuration: 0,
+                        contacted: false
+                    };
+                }
+                leadMap[name].count++;
+                leadMap[name].totalDuration += parseInt(row.total_duration) || 0;
+                if (isContacted(row.call_disposition)) {
+                    leadMap[name].contacted = true;
+                }
+            });
+
+            const leads = Object.values(leadMap)
+                .sort((a, b) => b.count - a.count)
+                .slice(0, 50);
+
+            const tbody = document.getElementById('leadsTableBody');
+            tbody.innerHTML = '';
+
+            leads.forEach(lead => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>${lead.name}</strong></td>
+                    <td>${lead.phone || 'N/A'}</td>
+                    <td><strong>${lead.count}</strong></td>
+                    <td>${lead.lastDisposition || 'N/A'}</td>
+                    <td><span class="status-badge ${lead.contacted ? 'status-contacted' : 'status-not-contacted'}">
+                        <i class="fas fa-${lead.contacted ? 'check' : 'times'}"></i>
+                        ${lead.contacted ? 'Contactado' : 'No Contactado'}
+                    </span></td>
+                    <td>${lead.totalDuration}s</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // ===== INICIALIZACIÓN =====
+        loadTheme();
+        
+        // Mostrar info del caché en consola
+        console.log('📊 Dashboard Voicebot v' + CACHE_CONFIG.VERSION);
+        const cacheInfo = CacheManager.getInfo();
+        console.log('💾 Caché:', cacheInfo);
+        
+        loadData();
+
+        // Auto-refresh cada 5 minutos (solo si no hay caché o está por expirar)
+        setInterval(() => {
+            const cacheAge = CacheManager.getAge('main_data');
+            const expirationMs = CACHE_CONFIG.EXPIRATION_HOURS * 60 * 60 * 1000;
+            
+            if (!cacheAge || cacheAge > (expirationMs * 0.9)) {
+                console.log('🔄 Actualización automática programada');
+                loadData(true);
+            }
+        }, 300000); // 5 minutos
+    </script>
+</body>
+</html>

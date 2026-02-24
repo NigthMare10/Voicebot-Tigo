@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" data-theme="light">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,10 +18,10 @@
             --text-secondary: #64748b;
             --text-tertiary: #94a3b8;
             --border-color: #e2e8f0;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
-            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
-            --shadow-lg: 0 10px 30px rgba(0,0,0,0.15);
-            --shadow-xl: 0 20px 60px rgba(0,0,0,0.2);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+            --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.2);
             --accent-primary: #667eea;
             --accent-secondary: #764ba2;
             --success: #10b981;
@@ -38,10 +39,10 @@
             --text-secondary: #cbd5e1;
             --text-tertiary: #94a3b8;
             --border-color: #334155;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
-            --shadow-md: 0 4px 6px rgba(0,0,0,0.3);
-            --shadow-lg: 0 10px 30px rgba(0,0,0,0.4);
-            --shadow-xl: 0 20px 60px rgba(0,0,0,0.5);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.4);
+            --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
         * {
@@ -67,7 +68,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
+            background:
                 radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3), transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(138, 43, 226, 0.3), transparent 50%);
             pointer-events: none;
@@ -76,8 +77,15 @@
         }
 
         @keyframes backgroundPulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 0.8; }
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
         }
 
         .container {
@@ -103,6 +111,7 @@
                 opacity: 0;
                 transform: translateY(-30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -141,8 +150,15 @@
         }
 
         @keyframes titleGlow {
-            0%, 100% { filter: brightness(1); }
-            50% { filter: brightness(1.2); }
+
+            0%,
+            100% {
+                filter: brightness(1);
+            }
+
+            50% {
+                filter: brightness(1.2);
+            }
         }
 
         .header-left p {
@@ -227,8 +243,17 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.8); }
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(0.8);
+            }
         }
 
         .kpi-grid {
@@ -244,6 +269,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -496,7 +522,9 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .loading-text {
@@ -504,7 +532,7 @@
             font-weight: 600;
         }
 
-        
+
         .loading-card {
             max-width: 520px;
             margin: 0 auto;
@@ -513,7 +541,7 @@
             border-radius: 18px;
             padding: 26px 22px;
             backdrop-filter: blur(10px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
         }
 
         .loading-subtext {
@@ -557,7 +585,8 @@
         .loading-detail {
             opacity: 0.85;
         }
-.error {
+
+        .error {
             background: rgba(239, 68, 68, 0.15);
             border: 2px solid var(--danger);
             color: var(--danger);
@@ -585,7 +614,8 @@
                 flex-direction: column;
             }
 
-            .btn, .theme-toggle {
+            .btn,
+            .theme-toggle {
                 width: 100%;
                 justify-content: center;
             }
@@ -593,7 +623,7 @@
             .chart-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .kpi-grid {
                 grid-template-columns: 1fr;
             }
@@ -648,12 +678,12 @@
             font-size: 1.5em;
             font-weight: 700;
         }
-    
-        .filter-bar{
-            display:flex;
-            flex-wrap:wrap;
-            gap:12px;
-            align-items:flex-end;
+
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: flex-end;
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
             border-radius: 16px;
@@ -661,43 +691,52 @@
             box-shadow: var(--shadow-sm);
             margin: 14px 0 18px;
         }
-        .filter-group{
-            display:flex;
-            flex-direction:column;
-            gap:6px;
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
             min-width: 170px;
         }
-        .filter-group label{
+
+        .filter-group label {
             font-size: .85em;
             color: var(--text-secondary);
             font-weight: 600;
         }
+
         .filter-group select,
-        .filter-group input[type="date"]{
+        .filter-group input[type="date"] {
             padding: 10px 12px;
             border: 1px solid var(--border-color);
             border-radius: 12px;
             background: var(--bg-primary);
             color: var(--text-primary);
-            outline:none;
+            outline: none;
         }
-        .filter-actions{
-            display:flex;
-            gap:10px;
-            align-items:center;
-            margin-left:auto;
+
+        .filter-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-left: auto;
         }
-        .btn-sm{ padding: 10px 12px; }
-        .btn-ghost{
+
+        .btn-sm {
+            padding: 10px 12px;
+        }
+
+        .btn-ghost {
             background: transparent;
             border: 1px solid var(--border-color);
             color: var(--text-primary);
         }
-        .btn-secondary{
+
+        .btn-secondary {
             background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary));
         }
 
-        .compare-panel{
+        .compare-panel {
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
             border-radius: 18px;
@@ -705,63 +744,92 @@
             box-shadow: var(--shadow-md);
             margin-bottom: 18px;
         }
-        .compare-header{
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
+
+        .compare-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 12px;
         }
-        .compare-grid{
-            display:grid;
+
+        .compare-grid {
+            display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 12px;
             margin-bottom: 14px;
         }
-        .compare-card{
+
+        .compare-card {
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 12px 14px;
             background: var(--bg-primary);
         }
-        .compare-card h4{
+
+        .compare-card h4 {
             margin-bottom: 10px;
             color: var(--text-primary);
         }
-        .compare-row{
-            display:grid;
+
+        .compare-row {
+            display: grid;
             grid-template-columns: 60px 1fr 60px 1fr;
             gap: 8px;
-            align-items:center;
+            align-items: center;
         }
-        .compare-row label{ color: var(--text-secondary); font-size: .85em; font-weight:600; }
-        .compare-row input{
+
+        .compare-row label {
+            color: var(--text-secondary);
+            font-size: .85em;
+            font-weight: 600;
+        }
+
+        .compare-row input {
             padding: 10px 12px;
             border: 1px solid var(--border-color);
             border-radius: 12px;
             background: var(--bg-secondary);
             color: var(--text-primary);
         }
-        .compare-actions{
-            display:flex;
-            flex-direction:column;
-            justify-content:center;
+
+        .compare-actions {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             gap: 10px;
         }
-        .small-note{ color: var(--text-tertiary); font-size: .85em; }
 
-        .badge{
-            display:inline-block;
+        .small-note {
+            color: var(--text-tertiary);
+            font-size: .85em;
+        }
+
+        .badge {
+            display: inline-block;
             padding: 6px 10px;
             border-radius: 999px;
             font-size: .8em;
             font-weight: 700;
             border: 1px solid var(--border-color);
         }
-        .badge-success{ background: rgba(16,185,129,.15); color: var(--success); }
-        .badge-warning{ background: rgba(245,158,11,.15); color: var(--warning); }
-        .badge-danger{ background: rgba(239,68,68,.15); color: var(--danger); }
-</style>
+
+        .badge-success {
+            background: rgba(16, 185, 129, .15);
+            color: var(--success);
+        }
+
+        .badge-warning {
+            background: rgba(245, 158, 11, .15);
+            color: var(--warning);
+        }
+
+        .badge-danger {
+            background: rgba(239, 68, 68, .15);
+            color: var(--danger);
+        }
+    </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -775,7 +843,9 @@
                     </div>
                 </div>
                 <div class="header-right">
-                    <button class="btn" onclick="loadData({ forceNetwork: true, cacheFirst: false, reason: \'manual\' })" id="refreshBtn">
+                    <button class="btn"
+                        onclick="loadData({ forceNetwork: true, cacheFirst: false, reason: \'manual\' })"
+                        id="refreshBtn">
                         <i class="fas fa-sync-alt"></i>
                         <span>Actualizar Datos</span>
                     </button>
@@ -783,98 +853,112 @@
                         <i class="fas fa-moon"></i>
                     </button>
                 </div>
-            
-        <div class="filter-bar">
-            <div class="filter-group">
-                <label><i class="fas fa-filter"></i> Rango rápido</label>
-                <select id="quickRange">
-                    <option value="all">Todo</option>
-                    <option value="today">Hoy</option>
-                    <option value="yesterday">Ayer</option>
-                    <option value="last7">Últimos 7 días</option>
-                    <option value="last30">Últimos 30 días</option>
-                    <option value="thisMonth">Este mes</option>
-                    <option value="lastMonth">Mes pasado</option>
-                    <option value="lastWeek">Semana pasada</option>
-                </select>
-            </div>
 
-            <div class="filter-group">
-                <label><i class="fas fa-calendar"></i> Desde</label>
-                <input type="date" id="dateFrom">
-            </div>
-            <div class="filter-group">
-                <label><i class="fas fa-calendar"></i> Hasta</label>
-                <input type="date" id="dateTo">
-            </div>
+                <div class="filter-bar">
+                    <div class="filter-group">
+                        <label><i class="fas fa-filter"></i> Rango rápido</label>
+                        <select id="quickRange">
+                            <option value="all">Todo</option>
+                            <option value="today">Hoy</option>
+                            <option value="yesterday">Ayer</option>
+                            <option value="last7">Últimos 7 días</option>
+                            <option value="last30">Últimos 30 días</option>
+                            <option value="thisMonth">Este mes</option>
+                            <option value="lastMonth">Mes pasado</option>
+                            <option value="lastWeek">Semana pasada</option>
+                        </select>
+                    </div>
 
-            <div class="filter-actions">
-                <button class="btn btn-sm" id="applyFilterBtn">
-                    <i class="fas fa-check"></i> Aplicar
-                </button>
-                <button class="btn btn-sm btn-ghost" id="clearFilterBtn">
-                    <i class="fas fa-eraser"></i> Limpiar
-                </button>
-            </div>
+                    <div class="filter-group">
+                        <label><i class="fas fa-calendar"></i> Desde</label>
+                        <input type="date" id="dateFrom">
+                    </div>
+                    <div class="filter-group">
+                        <label><i class="fas fa-calendar"></i> Hasta</label>
+                        <input type="date" id="dateTo">
+                    </div>
 
-            <div class="filter-actions">
-                <button class="btn btn-sm btn-secondary" id="openCompareBtn">
-                    <i class="fas fa-columns"></i> Comparativa
-                </button>
-            </div>
-        </div>
+                    <div class="filter-group">
+                        <label><i class="fas fa-file-invoice-dollar"></i> Factura (Cartera)</label>
+                        <select id="facturaFilter">
+                            <option value="all">Todas las facturas</option>
+                        </select>
+                    </div>
 
-        <div class="compare-panel" id="comparePanel" style="display:none;">
-            <div class="compare-header">
-                <h3><i class="fas fa-columns"></i> Comparativa entre rangos</h3>
-                <button class="btn btn-sm btn-ghost" id="closeCompareBtn"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="compare-grid">
-                <div class="compare-card">
-                    <h4>Rango A</h4>
-                    <div class="compare-row">
-                        <label>Desde</label><input type="date" id="cmpAFrom">
-                        <label>Hasta</label><input type="date" id="cmpATo">
+                    <div class="filter-group">
+                        <label><i class="fas fa-bullhorn"></i> Campaña</label>
+                        <select id="campaignFilter">
+                            <option value="all">Todas las campañas</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-actions">
+                        <button class="btn btn-sm" id="applyFilterBtn">
+                            <i class="fas fa-check"></i> Aplicar
+                        </button>
+                        <button class="btn btn-sm btn-ghost" id="clearFilterBtn">
+                            <i class="fas fa-eraser"></i> Limpiar
+                        </button>
+                    </div>
+
+                    <div class="filter-actions">
+                        <button class="btn btn-sm btn-secondary" id="openCompareBtn">
+                            <i class="fas fa-columns"></i> Comparativa
+                        </button>
                     </div>
                 </div>
-                <div class="compare-card">
-                    <h4>Rango B</h4>
-                    <div class="compare-row">
-                        <label>Desde</label><input type="date" id="cmpBFrom">
-                        <label>Hasta</label><input type="date" id="cmpBTo">
-                    </div>
-                </div>
-                <div class="compare-card compare-actions">
-                    <button class="btn" id="runCompareBtn"><i class="fas fa-play"></i> Comparar</button>
-                    <div class="small-note">Compara KPIs y muestra variación (Δ).</div>
-                </div>
-            </div>
 
-            <div class="compare-results" id="compareResults" style="display:none;">
-                <div class="chart-card full-width">
-                    <h3><i class="fas fa-chart-bar"></i> Comparativa de KPIs</h3>
-                    <div class="chart-container">
-                        <canvas id="compareChart"></canvas>
+                <div class="compare-panel" id="comparePanel" style="display:none;">
+                    <div class="compare-header">
+                        <h3><i class="fas fa-columns"></i> Comparativa entre rangos</h3>
+                        <button class="btn btn-sm btn-ghost" id="closeCompareBtn"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="compare-grid">
+                        <div class="compare-card">
+                            <h4>Rango A</h4>
+                            <div class="compare-row">
+                                <label>Desde</label><input type="date" id="cmpAFrom">
+                                <label>Hasta</label><input type="date" id="cmpATo">
+                            </div>
+                        </div>
+                        <div class="compare-card">
+                            <h4>Rango B</h4>
+                            <div class="compare-row">
+                                <label>Desde</label><input type="date" id="cmpBFrom">
+                                <label>Hasta</label><input type="date" id="cmpBTo">
+                            </div>
+                        </div>
+                        <div class="compare-card compare-actions">
+                            <button class="btn" id="runCompareBtn"><i class="fas fa-play"></i> Comparar</button>
+                            <div class="small-note">Compara KPIs y muestra variación (Δ).</div>
+                        </div>
+                    </div>
+
+                    <div class="compare-results" id="compareResults" style="display:none;">
+                        <div class="chart-card full-width">
+                            <h3><i class="fas fa-chart-bar"></i> Comparativa de KPIs</h3>
+                            <div class="chart-container">
+                                <canvas id="compareChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <h3><i class="fas fa-table"></i> Detalle comparativo</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>KPI</th>
+                                        <th>Rango A</th>
+                                        <th>Rango B</th>
+                                        <th>Δ (B - A)</th>
+                                        <th>Δ %</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="compareTableBody"></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-                <div class="table-container">
-                    <h3><i class="fas fa-table"></i> Detalle comparativo</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>KPI</th>
-                                <th>Rango A</th>
-                                <th>Rango B</th>
-                                <th>Δ (B - A)</th>
-                                <th>Δ %</th>
-                            </tr>
-                        </thead>
-                        <tbody id="compareTableBody"></tbody>
-                    </table>
-                </div>
             </div>
-        </div>
-</div>
         </div>
 
         <div id="loading" class="loading">
@@ -898,7 +982,8 @@
         <div id="dashboard" style="display: none;">
             <!-- KPIs para Clientes -->
             <div style="margin-bottom: 20px;">
-                <h2 style="color: var(--text-primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                <h2
+                    style="color: var(--text-primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
                     <i class="fas fa-chart-pie"></i> Métricas para Cliente
                 </h2>
             </div>
@@ -947,7 +1032,8 @@
                     <div class="kpi-label">Compromisos de Pago</div>
                     <div class="kpi-value" id="paymentCommitments">0</div>
                     <div class="kpi-subtitle" id="paymentCommitmentsPercent">0%</div>
-                    <div class="kpi-subtitle" style="margin-top:6px;color:var(--text-tertiary);">(confirma, compromiso_de_pago)</div>
+                    <div class="kpi-subtitle" style="margin-top:6px;color:var(--text-tertiary);">(compromiso*, confirma)
+                    </div>
                 </div>
 
                 <div class="kpi-card">
@@ -957,7 +1043,8 @@
                     <div class="kpi-label">Tasa Conversión Real</div>
                     <div class="kpi-value" id="realConversionRate">0%</div>
                     <div class="kpi-subtitle">Compromisos / Contactados</div>
-                    <div class="kpi-subtitle" style="margin-top:6px;color:var(--text-tertiary);">Efectividad real de la campaña</div>
+                    <div class="kpi-subtitle" style="margin-top:6px;color:var(--text-tertiary);">Efectividad real de la
+                        campaña</div>
                 </div>
 
                 <div class="kpi-card">
@@ -986,13 +1073,15 @@
                     <div class="kpi-label">Tiempo Promedio de Éxito</div>
                     <div class="kpi-value" id="avgSuccessDuration">0s</div>
                     <div class="kpi-subtitle">Duración de llamadas exitosas</div>
-                    <div class="kpi-subtitle" style="margin-top:6px;color:var(--text-tertiary);">Compromisos de pago logrados</div>
+                    <div class="kpi-subtitle" style="margin-top:6px;color:var(--text-tertiary);">Compromisos de pago
+                        logrados</div>
                 </div>
             </div>
 
             <!-- Métricas Internas -->
             <div style="margin: 40px 0 20px 0;">
-                <h2 style="color: var(--text-primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                <h2
+                    style="color: var(--text-primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
                     <i class="fas fa-cogs"></i> Métricas para Análisis Interno
                 </h2>
             </div>
@@ -1004,7 +1093,8 @@
                     <div class="kpi-label">No Contactados (3)</div>
                     <div class="kpi-value" id="notContacted">0</div>
                     <div class="kpi-subtitle" id="notContactedPercent"></div>
-                    <div class="kpi-subtitle" style="margin-top:6px;color:var(--text-tertiary);">(ANSWERMACHINE_AUTO, FAILED_AUTO, CANCEL_AUTO)</div>
+                    <div class="kpi-subtitle" style="margin-top:6px;color:var(--text-tertiary);">(ANSWERMACHINE_AUTO,
+                        FAILED_AUTO, CANCEL_AUTO)</div>
                 </div>
 
                 <div class="kpi-card">
@@ -1014,7 +1104,8 @@
                     <div class="kpi-label">Fallas Servidor IA</div>
                     <div class="kpi-value" id="aiServerFails">0</div>
                     <div class="kpi-subtitle" id="aiServerFailsPercent"></div>
-                    <div class="kpi-subtitle" style="margin-top:6px;color:var(--text-tertiary);">(AI_SERVER_START_FAILED)</div>
+                    <div class="kpi-subtitle" style="margin-top:6px;color:var(--text-tertiary);">
+                        (AI_SERVER_START_FAILED)</div>
                 </div>
 
                 <div class="kpi-card">
@@ -1033,7 +1124,8 @@
                     <div class="kpi-label">Mejor Intento</div>
                     <div class="kpi-value" id="bestAttempt">-</div>
                     <div class="kpi-subtitle" id="bestAttemptStats">-</div>
-                    <div class="kpi-subtitle" style="margin-top:6px;color:var(--text-tertiary);">Intento con más compromisos</div>
+                    <div class="kpi-subtitle" style="margin-top:6px;color:var(--text-tertiary);">Intento con más
+                        compromisos</div>
                 </div>
 
                 <div class="kpi-card">
@@ -1043,7 +1135,19 @@
                     <div class="kpi-label">Errores / Vacíos</div>
                     <div class="kpi-value" id="emptyDispositions">0</div>
                     <div class="kpi-subtitle" id="emptyDispositionsPercent"></div>
-                    <div class="kpi-subtitle" style="margin-top:6px;color:var(--text-tertiary);">Tipificaciones vacías o error</div>
+                    <div class="kpi-subtitle" style="margin-top:6px;color:var(--text-tertiary);">Tipificaciones vacías o
+                        error</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-icon">
+                        <i class="fas fa-user-tag"></i>
+                    </div>
+                    <div class="kpi-label">Sin Tipificar (Contactados)</div>
+                    <div class="kpi-value" id="untypifiedCount">0</div>
+                    <div class="kpi-subtitle" id="untypifiedPercent"></div>
+                    <div class="kpi-subtitle" style="margin-top:6px;color:var(--text-tertiary);">UNDEFINED + vacío
+                        (contacto sin tipificación correcta)</div>
                 </div>
             </div>
 
@@ -1136,7 +1240,7 @@
                 </div>
             </div>
 
-            
+
 
             <div class="table-container">
                 <h3><i class="fas fa-list"></i> Tipificaciones encontradas (todas)</h3>
@@ -1152,12 +1256,13 @@
                     <tbody id="allDispositionsBody"></tbody>
                 </table>
                 <div class="small-note" style="margin-top:10px;">
-                    Nota: <strong>No contactado</strong> = (ANSWERMACHINE_AUTO, FAILED_AUTO, CANCEL_AUTO). <strong>Falla IA</strong> = AI_SERVER_START_FAILED.
+                    Nota: <strong>No contactado</strong> = (ANSWERMACHINE_AUTO, FAILED_AUTO, CANCEL_AUTO). <strong>Falla
+                        IA</strong> = AI_SERVER_START_FAILED.
                 </div>
             </div>
 
-</div>
         </div>
+    </div>
     </div>
 
     <script>
@@ -1177,7 +1282,7 @@
             (url) => `https://cors.isomorphic-git.org/${url}`,
             (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`
         ];
-let allData = [];
+        let allData = [];
 
         // -----------------------------
         // Mapeo de columnas (para coincidir con Excel / tabla dinámica)
@@ -1213,6 +1318,7 @@ let allData = [];
             const key = normCurrentKey(raw);
             if (!key) return 'Sin clasificar';
             if (key === 'NO_ES_TITULAR') return 'no_es_titular (agrupado)';
+            if (key === 'COMPROMISO') return 'compromiso (agrupado)';
             return key; // ya va normalizado (UPPER)
         }
 
@@ -1225,6 +1331,7 @@ let allData = [];
 
         // -----------------------------
         // Tipificaciones / Reglas de Contacto
+        // (Actualizado según reglas de validación del cliente)
         // -----------------------------
         const NON_CONTACT_DISPOSITIONS = new Set([
             'ANSWERMACHINE_AUTO',
@@ -1238,25 +1345,72 @@ let allData = [];
             'AI_SERVER_START_FAILED'
         ]);
 
-        // Tipificaciones que INDICAN que el cliente respondió al bot (según tu definición)
-        // Nota: se comparan normalizadas (trim + upper)
-        const RESPONDED_DISPOSITIONS = new Set([
-            'UNDEFINED',
-            'CONFIRMA',
+        // Contactado: tipificaciones que indican que el cliente respondió al bot
+        // Incluye: vacío/en blanco, ANSWER, compromiso*, confirma,
+        // no_es_titular*, rechaza_pago, UNDEFINED, ya_pago
+        const CONTACTED_DISPOSITIONS = new Set([
+            'ANSWER',
+            'COMPROMISO',
+            'COMPROMISO_CONFIRMADO',
             'COMPROMISO_DE_PAGO',
-            'ANSWER'
+            'COMPROMISO_POR_CONFIRMAR',
+            'CONFIRMA',
+            'RECHAZA_PAGO',
+            'YA_PAGO',
+            'UNDEFINED'
         ]);
+
+        // Compromisos de pago: unificamos todo lo que lleve "compromiso" al inicio + confirma
+        function isCommitmentDisposition(d) {
+            const u = normDisp(d);
+            if (!u) return false;
+            if (u.startsWith('COMPROMISO')) return true;
+            if (u === 'CONFIRMA') return true;
+            return false;
+        }
+
+        // Sin Tipificar = contacto real pero sin tipificación correcta
+        function isUntypifiedDisposition(d) {
+            const u = normDisp(d);
+            if (!u || u === '') return true;  // vacío/en blanco
+            if (u === 'UNDEFINED') return true;
+            return false;
+        }
+
+        // --- Facturas (Carteras) ---
+        // Normalización canónica: quitar espacios entre FACTURA y número,
+        // todo a uppercase, mapear F1->FACTURA 1, etc.
+        const FACTURA_CANONICAL_MAP = {
+            'FACTURA1': 'FACTURA 1', 'FACTURA 1': 'FACTURA 1',
+            'FACTURA2': 'FACTURA 2', 'FACTURA 2': 'FACTURA 2',
+            'FACTURA3': 'FACTURA 3', 'FACTURA 3': 'FACTURA 3',
+            'FACTURA4': 'FACTURA 4', 'FACTURA 4': 'FACTURA 4',
+            'F1': 'FACTURA 1', 'F2': 'FACTURA 2',
+            'F3': 'FACTURA 3', 'F4': 'FACTURA 4'
+        };
+
+        function normFactura(v) {
+            const raw = String(v || '').trim().toUpperCase();
+            return FACTURA_CANONICAL_MAP[raw] || raw;
+        }
+
+        function isValidFactura(v) {
+            const raw = String(v || '').trim().toUpperCase();
+            return FACTURA_CANONICAL_MAP.hasOwnProperty(raw);
+        }
 
         function normDisp(v) {
             return String(v || '').trim().toUpperCase();
         }
 
         // Normaliza específicamente la lead_current_disposition para AGRUPAR variantes:
-        // - cualquier cosa que empiece con NO_ES o NO_ES_TITULAR => NO_ES_TITULAR
+        // - cualquier cosa que empiece con NO_ES => no_es (agrupado)
+        // - cualquier cosa que empiece con COMPROMISO => compromiso (agrupado)
         function normCurrentKey(v) {
             const u = normDisp(v);
             if (!u) return '';
             if (u.startsWith('NO_ES_TITULAR') || u.startsWith('NO_ES')) return 'NO_ES_TITULAR';
+            if (u.startsWith('COMPROMISO')) return 'COMPROMISO';
             return u;
         }
 
@@ -1277,39 +1431,45 @@ let allData = [];
             return AI_SERVER_FAIL_DISPOSITIONS.has(normDisp(d));
         }
 
-        // Clasificación según tus reglas (basado en lead_current_disposition):
-        // - NO CONTACTADOS (3): ANSWERMACHINE_AUTO, FAILED_AUTO, CANCEL_AUTO
-        // - FALLAS SERVIDOR IA: AI_SERVER_START_FAILED
-        // - RESPONDIÓ: (lista indicada por ti)
-        // - OTROS: cualquier otra tipificación (para que la veas y luego decidimos qué hacer con ellas)
+        // Contactado: la tipificación está en la lista de contactados,
+        // o empieza con NO_ES (el bot interactuó con alguien que no era el titular),
+        // o está vacía/en blanco (la llamada se contestó pero no se tipificó)
         function isRespondedDisposition(d) {
             const u = normDisp(d);
-            // Agrupado: cualquier NO_ES* cuenta como respondió (el bot sí interactuó)
+            // Vacío/en blanco = se respondió pero no se tipificó
+            if (!u || u === '') return true;
+            // no_es* = el bot interactuó pero no era el titular
             if (u.startsWith('NO_ES_TITULAR') || u.startsWith('NO_ES')) return true;
-            return RESPONDED_DISPOSITIONS.has(u);
+            // Contactados directos (incluye UNDEFINED)
+            if (CONTACTED_DISPOSITIONS.has(u)) return true;
+            // Cualquier variante de compromiso
+            if (u.startsWith('COMPROMISO')) return true;
+            return false;
         }
 
         function isContacted(d) {
-            // “Contactado” = el cliente RESPONDIÓ (según tu lista)
             return isRespondedDisposition(d);
         }
 
         function classifyDisposition(d) {
             const nd = normDisp(d);
-            if (!nd) return 'OTROS (SIN TIPIFICACIÓN)';
+            // Vacío también es contactado (se respondió, no se tipificó)
+            if (!nd || nd === '') return 'CONTACTADO (sin tipificar)';
             if (isAiServerFailDisposition(nd)) return 'FALLA SERVIDOR IA';
             if (isNonContactDisposition(nd)) return 'NO CONTACTADO (3)';
-            if (isRespondedDisposition(nd)) return 'RESPONDIÓ';
+            if (isRespondedDisposition(nd)) return 'CONTACTADO';
             return 'OTROS';
         }
 
         // -----------------------------
-        // Filtros de fecha (estado)
+        // Filtros de fecha + factura + campaña (estado)
         // -----------------------------
         let filterState = {
             quick: 'all',
             from: null, // YYYY-MM-DD
-            to: null    // YYYY-MM-DD
+            to: null,   // YYYY-MM-DD
+            factura: 'all',   // filtro por lead_field2
+            campaign: 'all'   // filtro por campaign_name
         };
 
         function parseRowDateKey(row) {
@@ -1380,11 +1540,32 @@ let allData = [];
         function getViewData() {
             const fromKey = filterState.from;
             const toKey = filterState.to;
-            if (!fromKey && !toKey) return allData;
+            const facturaFilter = filterState.factura;
+            const campaignFilter = filterState.campaign;
+
+            const hasDateFilter = fromKey || toKey;
+            const hasFacturaFilter = facturaFilter && facturaFilter !== 'all';
+            const hasCampaignFilter = campaignFilter && campaignFilter !== 'all';
+
+            if (!hasDateFilter && !hasFacturaFilter && !hasCampaignFilter) return allData;
 
             return allData.filter(r => {
-                const k = parseRowDateKey(r);
-                return inRange(k, fromKey, toKey);
+                // Filtro de fecha
+                if (hasDateFilter) {
+                    const k = parseRowDateKey(r);
+                    if (!inRange(k, fromKey, toKey)) return false;
+                }
+                // Filtro de factura (lead_field2)
+                if (hasFacturaFilter) {
+                    const rowFactura = normFactura(r.lead_field2);
+                    if (rowFactura !== normFactura(facturaFilter)) return false;
+                }
+                // Filtro de campaña
+                if (hasCampaignFilter) {
+                    const rowCampaign = String(r.campaign_name || '').trim();
+                    if (rowCampaign !== campaignFilter) return false;
+                }
+                return true;
             });
         }
 
@@ -1620,7 +1801,7 @@ let allData = [];
             throw lastErr ?? new Error('No se pudo descargar el CSV');
         }
 
-async function hashText(text) {
+        async function hashText(text) {
             try {
                 const enc = new TextEncoder();
                 const buf = await crypto.subtle.digest('SHA-256', enc.encode(text));
@@ -1636,7 +1817,7 @@ async function hashText(text) {
 
         function pickRow(r) {
             // Guardamos solo campos usados por el dashboard (menos memoria + caché más liviana)
-            // IMPORTANTE: incluimos lead_current_disposition porque es la base de las tipificaciones del reporte
+            // IMPORTANTE: incluimos lead_current_disposition, lead_field2 (factura/cartera) y campaign_name
             return {
                 date_start: r.date_start || null,
                 call_disposition: r.call_disposition || null,
@@ -1645,7 +1826,9 @@ async function hashText(text) {
                 lead_called_count: r.lead_called_count || 0,
                 total_duration: r.total_duration || 0,
                 answer_duration: r.answer_duration || 0,
-                lead_last_phone_dialed: r.lead_last_phone_dialed || null
+                lead_last_phone_dialed: r.lead_last_phone_dialed || null,
+                lead_field2: r.lead_field2 || null,
+                campaign_name: r.campaign_name || null
             };
         }
 
@@ -1655,7 +1838,7 @@ async function hashText(text) {
                     header: true,
                     skipEmptyLines: true,
                     worker: true,
-                    complete: function(results) {
+                    complete: function (results) {
                         try {
                             const rows = (results.data || [])
                                 .filter(r => r && r.date_start)
@@ -1665,7 +1848,7 @@ async function hashText(text) {
                             reject(e);
                         }
                     },
-                    error: function(error) {
+                    error: function (error) {
                         reject(error);
                     }
                 });
@@ -1680,14 +1863,14 @@ async function hashText(text) {
             const currentTheme = html.getAttribute('data-theme');
             const newTheme = currentTheme === 'light' ? 'dark' : 'light';
             html.setAttribute('data-theme', newTheme);
-            
+
             const btn = document.getElementById('themeBtn');
-            btn.innerHTML = newTheme === 'light' 
-                ? '<i class="fas fa-moon"></i>' 
+            btn.innerHTML = newTheme === 'light'
+                ? '<i class="fas fa-moon"></i>'
                 : '<i class="fas fa-sun"></i>';
-            
+
             localStorage.setItem('theme', newTheme);
-            
+
             // Actualizar gráficos con el nuevo tema
             updateChartsTheme();
         }
@@ -1697,8 +1880,8 @@ async function hashText(text) {
             const savedTheme = localStorage.getItem('theme') || 'light';
             document.documentElement.setAttribute('data-theme', savedTheme);
             const btn = document.getElementById('themeBtn');
-            btn.innerHTML = savedTheme === 'light' 
-                ? '<i class="fas fa-moon"></i>' 
+            btn.innerHTML = savedTheme === 'light'
+                ? '<i class="fas fa-moon"></i>'
                 : '<i class="fas fa-sun"></i>';
         }
 
@@ -1751,7 +1934,7 @@ async function hashText(text) {
 
             // Abortar request anterior si existiera
             if (window.__VOICEBOT_ABORT__) {
-                try { window.__VOICEBOT_ABORT__.abort(); } catch (_) {}
+                try { window.__VOICEBOT_ABORT__.abort(); } catch (_) { }
             }
             const abortCtrl = new AbortController();
             window.__VOICEBOT_ABORT__ = abortCtrl;
@@ -1766,7 +1949,7 @@ async function hashText(text) {
             const elapsedStop = startElapsedTimer();
 
             try {
-                debugGroup(`[Voicebot] Carga iniciada (reason=${options.reason})`, () => {});
+                debugGroup(`[Voicebot] Carga iniciada (reason=${options.reason})`, () => { });
                 setLoadingState({ pct: 2, stage: 'Preparando...', detail: '' });
 
                 // 1) Intentar leer caché
@@ -1781,6 +1964,7 @@ async function hashText(text) {
                     setLoadingState({ pct: 18, stage: 'Cargando desde caché...', detail: `${cached.rows.length.toLocaleString()} filas` });
 
                     allData = cached.rows;
+                    populateFilterDropdowns();
                     await processData({ progressFrom: 18, progressTo: 100 });
 
                     showLoadingUI(false);
@@ -1791,7 +1975,7 @@ async function hashText(text) {
                     if (options.backgroundRefresh) {
                         setTimeout(() => {
                             loadData({ cacheFirst: true, backgroundRefresh: false, forceNetwork: true, reason: 'background' })
-                                .catch(() => {});
+                                .catch(() => { });
                         }, 800);
                     }
 
@@ -1802,7 +1986,7 @@ async function hashText(text) {
                 setLoadingState({ pct: 10, stage: 'Descargando CSV...', detail: '' });
                 const { csvText, usedUrl } = await fetchCsvTextWithFallback({ signal: abortCtrl.signal, forceNoStore: options.forceNetwork });
 
-                debugLog(`[net] CSV descargado (${(csvText.length/1024/1024).toFixed(2)} MB) vía: ${usedUrl}`);
+                debugLog(`[net] CSV descargado (${(csvText.length / 1024 / 1024).toFixed(2)} MB) vía: ${usedUrl}`);
 
                 setLoadingState({ pct: 28, stage: 'Verificando cambios...', detail: '' });
                 const newHash = await hashText(csvText);
@@ -1812,6 +1996,7 @@ async function hashText(text) {
                     setLoadingState({ pct: 55, stage: 'Sin cambios (usando caché)...', detail: `${cached.rows.length.toLocaleString()} filas` });
 
                     allData = cached.rows;
+                    populateFilterDropdowns();
                     await processData({ progressFrom: 55, progressTo: 100 });
 
                     showLoadingUI(false);
@@ -1837,8 +2022,9 @@ async function hashText(text) {
                     rows
                 });
 
-                // 5) Pintar dashboard
+                // 5) Poblar dropdowns y pintar dashboard
                 allData = rows;
+                populateFilterDropdowns();
                 await processData({ progressFrom: 80, progressTo: 100 });
 
                 showLoadingUI(false);
@@ -1859,6 +2045,7 @@ async function hashText(text) {
                     setLoadingState({ pct: 35, stage: 'Fallo red. Usando caché disponible...', detail: `${cached.rows.length.toLocaleString()} filas` });
 
                     allData = cached.rows;
+                    populateFilterDropdowns();
                     await processData({ progressFrom: 35, progressTo: 100 });
 
                     showLoadingUI(false);
@@ -1965,7 +2152,7 @@ async function hashText(text) {
             }
             // Intentos promedio
             const callCounts = viewData.map(row => parseInt(row.lead_called_count) || 0).filter(c => c > 0);
-            const avgAttempts = callCounts.length > 0 
+            const avgAttempts = callCounts.length > 0
                 ? (callCounts.reduce((a, b) => a + b, 0) / callCounts.length).toFixed(2)
                 : 0;
             setText('avgAttempts', avgAttempts);
@@ -1983,11 +2170,9 @@ async function hashText(text) {
             setText('successRate', `${successRate}%`);
             document.getElementById('successTrend').innerHTML = `<i class="fas fa-phone-alt"></i> ${answered} llamadas`;
 
-            // Compromisos de pago (confirma + compromiso_de_pago)
+            // Compromisos de pago (unificado: todo lo que empiece con compromiso + confirma)
             const paymentCommitments = viewData.filter(row => {
-                const disp = getCurrentDisposition(row);
-                const dispLower = String(disp || '').toLowerCase().trim();
-                return dispLower === 'confirma' || dispLower === 'compromiso_de_pago';
+                return isCommitmentDisposition(getCurrentDisposition(row));
             }).length;
             const paymentCommitmentsPercent = totalCalls > 0 ? ((paymentCommitments / totalCalls) * 100).toFixed(1) : 0;
             setText('paymentCommitments', paymentCommitments.toLocaleString());
@@ -1997,11 +2182,9 @@ async function hashText(text) {
             const realConversionRate = respondedCount > 0 ? ((paymentCommitments / respondedCount) * 100).toFixed(1) : 0;
             setText('realConversionRate', realConversionRate + '%');
 
-            // Duración promedio de llamadas exitosas (solo compromisos de pago)
+            // Duración promedio de llamadas exitosas (solo compromisos de pago - unificados)
             const successfulCalls = viewData.filter(row => {
-                const disp = getCurrentDisposition(row);
-                const dispLower = String(disp || '').toLowerCase().trim();
-                return dispLower === 'confirma' || dispLower === 'compromiso_de_pago';
+                return isCommitmentDisposition(getCurrentDisposition(row));
             });
             const successDurations = successfulCalls.map(row => parseInt(row.total_duration) || 0);
             const avgSuccessDuration = successDurations.length > 0
@@ -2018,19 +2201,26 @@ async function hashText(text) {
             setText('emptyDispositions', emptyDispositions.toLocaleString());
             setText('emptyDispositionsPercent', emptyDispositionsPercent + '%');
 
+            // Sin Tipificar (Contactados): UNDEFINED + vacío
+            // Estas son llamadas que fueron contestadas pero no se tipificaron correctamente
+            const untypifiedCalls = viewData.filter(row => {
+                return isUntypifiedDisposition(getCurrentDisposition(row));
+            }).length;
+            const untypifiedPercent = totalCalls > 0 ? ((untypifiedCalls / totalCalls) * 100).toFixed(1) : 0;
+            setText('untypifiedCount', untypifiedCalls.toLocaleString());
+            setText('untypifiedPercent', untypifiedPercent + '% del total');
+
             // Mejor intento (análisis por número de intento)
             const attemptStats = {};
             viewData.forEach(row => {
                 const attempt = parseInt(row.lead_called_count) || 1;
-                const disp = getCurrentDisposition(row);
-                const dispLower = String(disp || '').toLowerCase().trim();
-                const isCommitment = dispLower === 'confirma' || dispLower === 'compromiso_de_pago';
-                
+                const commitment = isCommitmentDisposition(getCurrentDisposition(row));
+
                 if (!attemptStats[attempt]) {
                     attemptStats[attempt] = { total: 0, commitments: 0 };
                 }
                 attemptStats[attempt].total++;
-                if (isCommitment) attemptStats[attempt].commitments++;
+                if (commitment) attemptStats[attempt].commitments++;
             });
 
             let bestAttempt = 1;
@@ -2101,30 +2291,38 @@ async function hashText(text) {
             setP(100, 'Listo', '');
         }
 
-        
+
         function renderAllDispositionsTable(rows) {
             const tbody = document.getElementById('allDispositionsBody');
             if (!tbody) return;
 
             const total = rows.length || 0;
             const counts = {};
-            let noEsUnifiedCount = 0; // Contador para todas las tipificaciones no_es
-            
+            let noEsUnifiedCount = 0;
+            let compromisoUnifiedCount = 0;
+
             rows.forEach(r => {
                 const raw = getCurrentDisposition(r);
                 const d = (raw == null || String(raw).trim() === '') ? '(vacío)' : String(raw).trim();
-                
+                const dLower = d.toLowerCase();
+
                 // Unificar todas las tipificaciones que empiezan con "no_es"
-                if (d.toLowerCase().startsWith('no_es')) {
+                if (dLower.startsWith('no_es')) {
                     noEsUnifiedCount++;
+                    // Unificar todas las tipificaciones que empiezan con "compromiso"
+                } else if (dLower.startsWith('compromiso')) {
+                    compromisoUnifiedCount++;
                 } else {
                     counts[d] = (counts[d] || 0) + 1;
                 }
             });
-            
-            // Agregar la fila unificada de no_es si hay registros
+
+            // Agregar filas unificadas
             if (noEsUnifiedCount > 0) {
                 counts['no_es_* (unificado)'] = noEsUnifiedCount;
+            }
+            if (compromisoUnifiedCount > 0) {
+                counts['compromiso_* (unificado)'] = compromisoUnifiedCount;
             }
 
             const entries = Object.entries(counts)
@@ -2134,8 +2332,9 @@ async function hashText(text) {
                 const pct = total > 0 ? ((cnt / total) * 100).toFixed(1) : '0.0';
                 const cls = classifyDisposition(disp);
                 const badge = cls.includes('NO CONTACTADO') ? 'warning'
-                              : cls.includes('FALLA') ? 'danger'
-                              : 'success';
+                    : cls.includes('FALLA') ? 'danger'
+                        : cls.includes('CONTACTADO') ? 'success'
+                            : 'warning';
 
                 return `
                     <tr>
@@ -2148,7 +2347,7 @@ async function hashText(text) {
             }).join('');
         }
 
-function getChartColors() {
+        function getChartColors() {
             const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
             return {
                 textColor: isDark ? '#f1f5f9' : '#1e293b',
@@ -2174,9 +2373,9 @@ function getChartColors() {
             const sortedMonths = Object.keys(monthCounts).sort();
             const ctx = document.getElementById('monthlyChart');
             const colors = getChartColors();
-            
+
             if (charts.monthly) charts.monthly.destroy();
-            
+
             charts.monthly = new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -2198,8 +2397,8 @@ function getChartColors() {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { 
-                            display: false 
+                        legend: {
+                            display: false
                         },
                         tooltip: {
                             backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -2208,7 +2407,7 @@ function getChartColors() {
                         }
                     },
                     scales: {
-                        y: { 
+                        y: {
                             beginAtZero: true,
                             ticks: { color: colors.textColor },
                             grid: { color: colors.gridColor }
@@ -2231,15 +2430,15 @@ function getChartColors() {
             });
 
             // Ordenar por frecuencia y agrupar "Otros" para no saturar la leyenda
-            const entries = Object.entries(counts).sort((a,b) => b[1] - a[1]);
+            const entries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
             const TOP_N = 12;
             const top = entries.slice(0, TOP_N);
             const rest = entries.slice(TOP_N);
-            const othersCount = rest.reduce((acc, [,v]) => acc + v, 0);
+            const othersCount = rest.reduce((acc, [, v]) => acc + v, 0);
             if (othersCount > 0) top.push(['Otros', othersCount]);
 
             const labels = top.map(([k]) => k);
-            const data = top.map(([,v]) => v);
+            const data = top.map(([, v]) => v);
 
             const ctx = document.getElementById('dispositionChart');
             const colors = getChartColors();
@@ -2274,10 +2473,10 @@ function getChartColors() {
                         },
                         tooltip: {
                             callbacks: {
-                                label: function(context) {
-                                    const total = data.reduce((a,b)=>a+b,0) || 0;
+                                label: function (context) {
+                                    const total = data.reduce((a, b) => a + b, 0) || 0;
                                     const value = context.raw || 0;
-                                    const pct = total ? ((value/total)*100).toFixed(1) : '0.0';
+                                    const pct = total ? ((value / total) * 100).toFixed(1) : '0.0';
                                     return `${context.label}: ${value.toLocaleString()} (${pct}%)`;
                                 }
                             }
@@ -2287,7 +2486,7 @@ function getChartColors() {
             });
         }
 
-function createContactChart() {
+        function createContactChart() {
             const total = currentViewData.length;
 
             const nonContacted = currentViewData.filter(r => isNonContactDisposition(getCurrentDisposition(r))).length;
@@ -2328,7 +2527,7 @@ function createContactChart() {
                         },
                         tooltip: {
                             callbacks: {
-                                label: function(context) {
+                                label: function (context) {
                                     const value = context.raw || 0;
                                     const pct = total > 0 ? ((value / total) * 100).toFixed(1) : '0.0';
                                     return `${context.label}: ${value.toLocaleString()} (${pct}%)`;
@@ -2379,7 +2578,7 @@ function createContactChart() {
                         }
                     },
                     scales: {
-                        x: { 
+                        x: {
                             beginAtZero: true,
                             ticks: { color: colors.textColor },
                             grid: { color: colors.gridColor }
@@ -2442,7 +2641,7 @@ function createContactChart() {
                         }
                     },
                     scales: {
-                        y: { 
+                        y: {
                             beginAtZero: true,
                             ticks: { color: colors.textColor },
                             grid: { color: colors.gridColor }
@@ -2492,7 +2691,7 @@ function createContactChart() {
                         }
                     },
                     scales: {
-                        y: { 
+                        y: {
                             beginAtZero: true,
                             ticks: { color: colors.textColor },
                             grid: { color: colors.gridColor }
@@ -2511,15 +2710,13 @@ function createContactChart() {
             const attemptStats = {};
             currentViewData.forEach(row => {
                 const attempt = parseInt(row.lead_called_count) || 1;
-                const disp = getCurrentDisposition(row);
-                const dispLower = String(disp || '').toLowerCase().trim();
-                const isCommitment = dispLower === 'confirma' || dispLower === 'compromiso_de_pago';
-                
+                const commitment = isCommitmentDisposition(getCurrentDisposition(row));
+
                 if (!attemptStats[attempt]) {
                     attemptStats[attempt] = { total: 0, commitments: 0 };
                 }
                 attemptStats[attempt].total++;
-                if (isCommitment) attemptStats[attempt].commitments++;
+                if (commitment) attemptStats[attempt].commitments++;
             });
 
             const sortedAttempts = Object.keys(attemptStats).sort((a, b) => parseInt(a) - parseInt(b));
@@ -2559,7 +2756,7 @@ function createContactChart() {
                             padding: 12,
                             cornerRadius: 8,
                             callbacks: {
-                                label: function(context) {
+                                label: function (context) {
                                     const attempt = sortedAttempts[context.dataIndex];
                                     const stats = attemptStats[attempt];
                                     return [
@@ -2572,11 +2769,11 @@ function createContactChart() {
                         }
                     },
                     scales: {
-                        y: { 
+                        y: {
                             beginAtZero: true,
-                            ticks: { 
+                            ticks: {
                                 color: colors.textColor,
-                                callback: function(value) { return value + '%'; }
+                                callback: function (value) { return value + '%'; }
                             },
                             grid: { color: colors.gridColor }
                         },
@@ -2605,13 +2802,11 @@ function createContactChart() {
                 if (!row.date_start) return;
                 const date = new Date(row.date_start);
                 const day = date.getDay();
-                
-                const disp = getCurrentDisposition(row);
-                const dispLower = String(disp || '').toLowerCase().trim();
-                const isCommitment = dispLower === 'confirma' || dispLower === 'compromiso_de_pago';
-                
+
+                const commitment = isCommitmentDisposition(getCurrentDisposition(row));
+
                 weekdayStats[day].total++;
-                if (isCommitment) weekdayStats[day].commitments++;
+                if (commitment) weekdayStats[day].commitments++;
             });
 
             const labels = Object.values(weekdayStats).map(s => s.name);
@@ -2649,7 +2844,7 @@ function createContactChart() {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { 
+                        legend: {
                             position: 'top',
                             labels: { color: colors.textColor, padding: 15 }
                         },
@@ -2660,7 +2855,7 @@ function createContactChart() {
                         }
                     },
                     scales: {
-                        y: { 
+                        y: {
                             beginAtZero: true,
                             ticks: { color: colors.textColor },
                             grid: { color: colors.gridColor }
@@ -2685,15 +2880,14 @@ function createContactChart() {
                 if (!row.date_start) return;
                 const date = new Date(row.date_start);
                 const hour = date.getHours();
-                
+
                 const disp = getCurrentDisposition(row);
-                const dispLower = String(disp || '').toLowerCase().trim();
-                const isCommitment = dispLower === 'confirma' || dispLower === 'compromiso_de_pago';
-                const isContacted = isRespondedDisposition(disp);
-                
+                const commitment = isCommitmentDisposition(disp);
+                const contacted = isRespondedDisposition(disp);
+
                 hourlyStats[hour].total++;
-                if (isCommitment) hourlyStats[hour].commitments++;
-                if (isContacted) hourlyStats[hour].contacted++;
+                if (commitment) hourlyStats[hour].commitments++;
+                if (contacted) hourlyStats[hour].contacted++;
             });
 
             const labels = Object.keys(hourlyStats).map(h => `${h}:00`);
@@ -2743,7 +2937,7 @@ function createContactChart() {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { 
+                        legend: {
                             position: 'top',
                             labels: { color: colors.textColor, padding: 15 }
                         },
@@ -2754,7 +2948,7 @@ function createContactChart() {
                         }
                     },
                     scales: {
-                        y: { 
+                        y: {
                             beginAtZero: true,
                             ticks: { color: colors.textColor },
                             grid: { color: colors.gridColor }
@@ -2768,11 +2962,61 @@ function createContactChart() {
             });
         }
 
-        
+
 
         // -----------------------------
         // UI: filtros y comparativa
         // -----------------------------
+        // Poblar los dropdowns de Factura y Campaña con las opciones encontradas en los datos
+        function populateFilterDropdowns() {
+            // --- Factura ---
+            const facturaSelect = document.getElementById('facturaFilter');
+            if (facturaSelect) {
+                const facturasFound = new Set();
+                allData.forEach(r => {
+                    if (r.lead_field2 && isValidFactura(r.lead_field2)) {
+                        // Guardar la forma canónica (FACTURA 1, FACTURA 2, etc.)
+                        facturasFound.add(normFactura(r.lead_field2));
+                    }
+                });
+                // Ordenar
+                const sorted = [...facturasFound].sort();
+                // Limpiar opciones existentes excepto la primera ("Todas")
+                facturaSelect.innerHTML = '<option value="all">Todas las facturas</option>';
+                sorted.forEach(f => {
+                    const opt = document.createElement('option');
+                    opt.value = f;
+                    opt.textContent = f;
+                    facturaSelect.appendChild(opt);
+                });
+                // Restaurar selección si existe
+                if (filterState.factura && filterState.factura !== 'all') {
+                    facturaSelect.value = filterState.factura;
+                }
+            }
+
+            // --- Campaña ---
+            const campaignSelect = document.getElementById('campaignFilter');
+            if (campaignSelect) {
+                const campaignsFound = new Set();
+                allData.forEach(r => {
+                    const val = String(r.campaign_name || '').trim();
+                    if (val) campaignsFound.add(val);
+                });
+                const sorted = [...campaignsFound].sort();
+                campaignSelect.innerHTML = '<option value="all">Todas las campañas</option>';
+                sorted.forEach(c => {
+                    const opt = document.createElement('option');
+                    opt.value = c;
+                    opt.textContent = c;
+                    campaignSelect.appendChild(opt);
+                });
+                if (filterState.campaign && filterState.campaign !== 'all') {
+                    campaignSelect.value = filterState.campaign;
+                }
+            }
+        }
+
         function initFiltersUI() {
             // Aviso si se abre con file:// (origin null)
             if (location.protocol === 'file:') {
@@ -2780,6 +3024,8 @@ function createContactChart() {
             }
 
             const quickSel = document.getElementById('quickRange');
+            const facturaSelect = document.getElementById('facturaFilter');
+            const campaignSelect = document.getElementById('campaignFilter');
             const btnApply = document.getElementById('applyFilterBtn');
             const btnClear = document.getElementById('clearFilterBtn');
             const btnOpenCmp = document.getElementById('openCompareBtn');
@@ -2827,7 +3073,11 @@ function createContactChart() {
                         filterState.to = to || null;
                     }
 
-                    debugLog(`[filter] aplicado quick=${filterState.quick} from=${filterState.from || '∅'} to=${filterState.to || '∅'}`);
+                    // Leer filtros de factura y campaña
+                    filterState.factura = facturaSelect?.value || 'all';
+                    filterState.campaign = campaignSelect?.value || 'all';
+
+                    debugLog(`[filter] aplicado quick=${filterState.quick} from=${filterState.from || '∅'} to=${filterState.to || '∅'} factura=${filterState.factura} campaign=${filterState.campaign}`);
                     await recalc('Filtro aplicado');
                 });
             }
@@ -2837,7 +3087,11 @@ function createContactChart() {
                     filterState.quick = 'all';
                     filterState.from = null;
                     filterState.to = null;
+                    filterState.factura = 'all';
+                    filterState.campaign = 'all';
                     if (quickSel) quickSel.value = 'all';
+                    if (facturaSelect) facturaSelect.value = 'all';
+                    if (campaignSelect) campaignSelect.value = 'all';
                     setFilterInputs(null, null);
                     debugLog('[filter] limpiado');
                     await recalc('Filtro limpio');
@@ -2878,7 +3132,7 @@ function createContactChart() {
             const successRate = total > 0 ? (answered / total) * 100 : 0;
 
             const durations = rows.map(r => parseInt(r.total_duration) || 0);
-            const avgDuration = durations.length ? (durations.reduce((a,b)=>a+b,0) / durations.length) : 0;
+            const avgDuration = durations.length ? (durations.reduce((a, b) => a + b, 0) / durations.length) : 0;
 
             return {
                 total,
@@ -2991,7 +3245,7 @@ function createContactChart() {
             debugLog(`[compare] A(${aFrom || '∅'}..${aTo || '∅'}) filas=${rowsA.length} | B(${bFrom || '∅'}..${bTo || '∅'}) filas=${rowsB.length}`);
         }
 
-// Inicialización
+        // Inicialización
         loadTheme();
         initFiltersUI();
         loadData({ cacheFirst: true, backgroundRefresh: true, reason: 'init' });
@@ -3000,4 +3254,5 @@ function createContactChart() {
         setInterval(() => loadData({ cacheFirst: true, backgroundRefresh: true, reason: 'auto' }), 300000);
     </script>
 </body>
+
 </html>
